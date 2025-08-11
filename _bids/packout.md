@@ -29,7 +29,6 @@ The following photos were taken to dimension an **original, made-to-fit PACKOUT 
   <img src="/bids/assets/img/webp/Image10.webp" alt="Packout 10" loading="lazy">
 </div>
   <!-- ... -->
-</div>
 
 <style>
 .gallery-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
