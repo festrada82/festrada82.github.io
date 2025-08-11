@@ -15,4 +15,4 @@ CAD/CAM · Reverse engineering · Medical & industrial design.
 
 > Need a tailored preview for your project? I can share a private **Bid Pack** link.
 
-**Contact:** tuemail@dominio.com
+**Contact:** stradag@gmail.com
