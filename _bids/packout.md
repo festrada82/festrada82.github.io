@@ -11,8 +11,10 @@ header:
 The following photos were taken to dimension an **original, made-to-fit PACKOUT insert design**. Measurements were captured with a **digital caliper**.
 
 <div class="gallery-2">
-  <img src="/assets/img/webp/packout-01.webp" alt="Packout 1" loading="lazy">
-  <img src="/assets/img/webp/packout-02.webp" alt="Packout 2" loading="lazy">
+  <img src="/assets/img/webp/Image1.webp" alt="Packout 1" loading="lazy">
+  <img src="/assets/img/webp/Image2.webp" alt="Packout 2" loading="lazy">
+  <img src="/assets/img/webp/Image3.webp" alt="Packout 3" loading="lazy">
+  <img src="/assets/img/webp/Image4.webp" alt="Packout 4" loading="lazy">
   <!-- ... -->
 </div>
 
