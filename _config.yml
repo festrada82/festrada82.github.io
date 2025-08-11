@@ -10,12 +10,12 @@ plugins:
 
 # Opciones del tema
 locale: en
-logo: /assets/img/profile.jpg   # opcional
+logo: /bid/assets/img/profile.jpg   # opcional
 search: false
 author:
   name: "Francisco Estrada Garcia"
   bio: "CSWP + CSWPA (Mold, Surfacing, Weldments, Sheet Metal, Drawing)"
-  avatar: "/assets/img/profile.jpg"
+  avatar: "bid/assets/img/profile.jpg"
 
 # Colección para tus Bid Packs (páginas por propuesta)
 collections:
