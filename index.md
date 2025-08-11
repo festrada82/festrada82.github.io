@@ -1,5 +1,5 @@
 ---
-title: Francisco Estrada — Mechanical Design
+title: Francisco Estrada Garcia — Mechanical Design
 ---
 # Francisco Estrada
 **Certified SOLIDWORKS Professional (CSWP)** + CSWPA (Mold, Surfacing, Weldments, Sheet Metal, Drawing).  
