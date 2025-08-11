@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Font Preview Tool - A specialized tool designed to upload and preview Local fonts with both Bengali and English text. Test various font styles, sizes, and sample texts, with a focus on enhancing Bengali typography.">
+    <meta name="keywords" content="font preview, upload fonts, custom fonts, typography, text samples, English, Bengali">
+    <meta name="author" content="Md. Rifat Hasan Jihan">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Font Preview Tool">
+    <meta property="og:description" content="Upload and preview local fonts. Test different styles, sizes, and sample texts in English and Bengali.">
+    <meta property="og:image" content="https://rhjihan.github.io/contents/font-preview.jpg">
+    <meta property="og:url" content="https://rhjihan.github.io/font-preview.html">
+    <title>Font Preview Tool - Upload and Preview Local Fonts</title>
+    <link rel="icon" href="https://rhjihan.github.io/contents/font-favicon.ico" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/f83b4b844c.js" crossorigin="anonymous"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      th {
+        text-align: left;
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+      }
+
+      td {
+        padding: 10px;
+      }
+
+      .font-name {
+        font-family: Arial, sans-serif;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .close-btn {
+        padding: 5px 10px;
+        background-color: #f44336;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+      }
+
+      .close-btn:hover {
+        background-color: #d32f2f;
+        /* Darker red on hover */
+      }
+
+      .close-btn:active {
+        background-color: #b71c1c;
+        /* Even darker red on click */
+        transform: scale(0.95);
+        /* Slightly shrinks the button */
+      }
+
+      .text-area-container {
+        margin-top: 30px;
+        display: flex;
+        gap: 20px;
+        /* Increased gap for better spacing */
+      }
+
+      .text-area-wrapper {
+        flex: 1;
+        /* Allow text areas to grow */
+        display: flex;
+        flex-direction: column;
+        /* Stack label above textarea */
+      }
+
+      label {
+        margin-bottom: 5px;
+        /* Space between label and input */
+      }
+
+      select,
+      textarea {
+        min-height: 50px;
+        padding: 10px;
+        /* Padding for inputs */
+        border: 1px solid #ccc;
+        /* Light border */
+        border-radius: 5px;
+        /* Rounded corners */
+        font-size: 16px;
+        /* Consistent font size */
+        font-family: Arial, sans-serif;
+      }
+
+      textarea {
+        resize: both;
+        /* Allow resizing */
+      }
+
+      .file-label {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-bottom: 20px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+      }
+
+      .file-label:hover {
+        background-color: #388E3C;
+        /* Darker green on hover */
+      }
+
+      .file-label:active {
+        background-color: #2E7D32;
+        /* Even darker green on click */
+        transform: scale(0.95);
+        /* Slightly shrinks the label */
+      }
+
+      footer {
+        text-align: center;
+        /* Center the text */
+        margin-top: 40px;
+        /* Add space above the footer */
+        padding: 10px;
+        /* Add padding for better spacing */
+        font-size: 0.9em;
+        /* Slightly smaller font size */
+        color: #555;
+        /* Dark gray color for the text */
+      }
+
+      footer a {
+        text-decoration: none;
+        /* Remove underline */
+        color: #555;
+        /* Change color to a standard link color */
+      }
+
+      footer a:hover {
+        color: #007BFF;
+        /* Change color to a standard link color */
+      }
+
+      #clearAllButton {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #f44336;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+      }
+
+      #clearAllButton:hover {
+        background-color: #d32f2f;
+        /* Darker red on hover */
+      }
+
+      #clearAllButton:active {
+        background-color: #b71c1c;
+        /* Even darker red on click */
+        transform: scale(0.95);
+        /* Slightly shrinks the button */
+      }
+
+      #fontSize {
+        margin-bottom: 5px;
+        /* Adjust the value for more or less space */
+      }
+
+      #fontSizeValue {
+        margin-right: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>
+      <i class="fa-solid fa-eye"></i> Font Preview
+    </h1>
+    <label class="file-label" for="fontUpload">
+      <i class="fa-solid fa-file-circle-plus"></i> Load Font </label>
+    <input type="file" id="fontUpload" accept=".ttf,.otf" multiple style="display: none;" />
+    <button id="clearAllButton">
+      <i class="fa-solid fa-trash"></i> Clear All </button>
+    <div class="text-area-container">
+      <div class="text-area-wrapper">
+        <label for="previewText">Sample Text (English):</label>
+        <select id="sampleTextEnglishSelect">
+          <option value="">Select sample text...</option>
+          <option value="The quick brown fox jumps over the lazy dog.">The quick brown fox...</option>
+          <option value="How vexingly quick daft zebras jump!">How vexingly quick...</option>
+          <option value="Waltz, bad nymph, for quick jigs vex.">Waltz, bad nymph...</option>
+          <option value="A B C D E F G H I J K L M N O P Q R S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x y z 1 2 3 4 5 6 7 8 9 0 ! @ £ $ % & * ( ) + – - — “ ” ‘ ’ ? /">A B C D E F G...</option>
+        </select>
+        <textarea id="previewText" placeholder="Type text to preview">The quick brown fox jumps over the lazy dog.</textarea>
+      </div>
+      <div class="text-area-wrapper">
+        <label for="previewTextBn">Sample Text (Bengali):</label>
+        <select id="sampleTextBengaliSelect">
+          <option value="">নমুনা পাঠ্য নির্বাচন...</option>
+          <option value="লেটারফর্মগুলিতে টোন, টিম্বার, অক্ষর থাকে ঠিক শব্দ এবং বাক্যগুলির মতো।">লেটারফর্মগুলিতে টোন...</option>
+          <option value="শাসনতন্ত্রে বা আ‌ইনে প্রদত্ত মৌলিক অধিকার লঙ্ঘনের ক্ষেত্রে উপযুক্ত জাতীয় বিচার আদালতের কাছ থেকে কার্যকর প্রতিকার লাভের অধিকার প্রত্যেকের‌ই রয়েছে।">শাসনতন্ত্রে বা আ‌ইনে প্রদত্ত...</option>
+          <option value="বিধাতার রাজ্যে ভালো জিনিস অল্প হয় বলেই তা ভালো, নইলে সে নিজেরই ভিড়ের ঠেলায় হয়ে যেত মাঝারি।">বিধাতার রাজ্যে ভালো জিনিস...</option>
+          <option value="ক খ গ ঘ ঙ চ ছ জ ঝ ঞ ট ঠ ড ঢ ণ ত থ দ ধ ন প ফ ব ভ ম য র ল শ ষ স হ ড় ঢ় য় ৎ ং ঃ ঁ ১ ২ ৩ ৪ ৫ ৬ ৭ ৮ ৯ ০ ক্ক ক্ট ক্ট্র ক্ত ক্ত্র ক্ন ক্ব ক্ম ক্য ক্র ক্ল ক্ষ ক্ষ্ণ ক্ষ্ব ক্ষ্ম ক্ষ্ম্য ক্ষ্য ক্স খ্য খ্র গ্‌ণ গ্ধ গ্ধ্য গ্ধ্র গ্ন গ্ন্য গ্ব গ্ম গ্য গ্র গ্র্য গ্ল ঘ্ন ঘ্য ঘ্র ঙ্ক ঙ্‌ক্ত ঙ্ক্য ঙ্ক্ষ ঙ্খ ঙ্খ্য ঙ্গ ঙ্গ্য ঙ্ঘ ঙ্ঘ্য ঙ্ঘ্র ঙ্ম চ্চ চ্ছ চ্ছ্ব চ্ছ্র চ্ঞ চ্ব চ্য জ্জ জ্জ্ব জ্ঝ জ্ঞ জ্ব জ্য জ্র ঞ্চ ঞ্ছ ঞ্জ ঞ্ঝ ট্ট ট্ব ট্ম ট্য ট্র ড্ড ড্ব ড্ম ড্য ড্র ড়্গ ঢ্য ঢ্র ণ্ট ণ্ঠ ণ্ঠ্য ণ্ড ণ্ড্য ণ্ড্র ণ্ঢ ণ্ণ ণ্ব ণ্ম ণ্য ত্ত ত্ত্ব ত্ত্য ত্থ ত্ন ৎপ ত্ব ত্ম ত্ম্য ত্য ত্র ত্র্য থ্ব থ্য থ্র দ্গ দ্ঘ দ্দ দ্দ্ব দ্ধ দ্ব দ্ভ দ্ভ্র দ্ম দ্য দ্র দ্র্য ধ্ন ধ্ব ধ্ম ধ্য ধ্র ন্ট ন্ট্র ন্ঠ ন্ড ন্ড্র ন্ত ন্ত্ব ন্ত্য ন্ত্র ন্ত্র্য ন্থ ন্থ্র ন্দ ন্দ্য ন্দ্ব ন্দ্র ন্ধ ন্ধ্য ন্ধ্র ন্ন ন্ব ন্ম ন্য প্ট প্ত প্ন প্প প্য প্র প্র্য প্ল প্স ফ্র ফ্ল ব্জ ব্দ ব্ধ ব্ব ব্য ব্র ব্ল ভ্ব ভ্য ভ্র ভ্ল ম্ন ম্প ম্প্র ম্ফ ম্ব ম্ব্র ম্ভ ম্ভ্র ম্ম ম্য ম্র ম্ল য্য ল্ক ল্ক্য ল্গ ল্ট ল্ড ল্প ল্ফ ল্ব ল্ভ ল্ম ল্য ল্ল শ্চ শ্ছ শ্ন শ্ব শ্ম শ্য শ্র শ্ল ষ্ক ষ্ক্ব ষ্ক্র ষ্ট ষ্ট্য ষ্ট্র ষ্ঠ ষ্ঠ্য ষ্ণ ষ্ণ্ব ষ্প ষ্প্র ষ্ফ ষ্ব ষ্ম ষ্য স্ক স্ক্র স্খ স্ট স্ট্র স্ত স্ত্ব স্ত্য স্ত্র স্থ স্থ্য স্ন স্ন্য স্প স্প্র স্প্‌ল স্ফ স্ব স্ম স্য স্র স্ল হ্ণ হ্ন হ্ব হ্ম হ্য হ্র হ্ল">ক খ গ ঘ ঙ চ ছ জ...</option>
+        </select>
+        <textarea id="previewTextBn" placeholder="প্রাগ্‌দর্শনের জন্য পাঠ্য লিখুন">লেটারফর্মগুলিতে টোন, টিম্বার, অক্ষর থাকে ঠিক শব্দ এবং বাক্যগুলির মতো।</textarea>
+      </div>
+    </div>
+    <div style="display: flex; align-items: center; margin-top: 10px;">
+      <label for="fontSize" style="margin-right: 10px;">Font Size:</label>
+      <input type="range" id="fontSize" value="22" min="8" max="100" style="margin-right: 10px;" />
+      <span id="fontSizeValue">22</span>
+      <!-- To display the current value -->
+      <label style="margin-bottom: 5px;">
+        <input type="checkbox" id="bold" />
+        <b>Bold</b>
+      </label>
+      <label style="margin-left: 10px; margin-bottom: 5px;">
+        <input type="checkbox" id="italic" />
+        <i>Italic</i>
+      </label>
+    </div>
+    <table id="fontsContainer">
+      <thead>
+        <tr>
+          <th>Font Name</th>
+          <th>Sample Text (English)</th>
+          <th>Sample Text (Bengali)</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <script>
+      const fontContainerBody = document.getElementById('fontsContainer').getElementsByTagName('tbody')[0];
+      const previewText = document.getElementById('previewText');
+      const previewTextBn = document.getElementById('previewTextBn');
+      const fontSizeInput = document.getElementById('fontSize');
+      const fontSizeDisplay = document.getElementById('fontSizeValue'); // Added for display
+      const boldCheckbox = document.getElementById('bold');
+      const italicCheckbox = document.getElementById('italic');
+      const clearAllButton = document.getElementById('clearAllButton');
+      // Function to load fonts from uploaded files
+      function loadFonts(files) {
+        Array.from(files).forEach(file => {
+          const reader = new FileReader();
+          reader.onload = function(event) {
+            const fontName = file.name.split('.')[0];
+            const fontFace = new FontFace(fontName, event.target.result);
+            fontFace.load().then(function(loadedFace) {
+              document.fonts.add(loadedFace);
+              const row = document.createElement('tr');
+              const fontNameCell = document.createElement('td');
+              const sampleTextCell = document.createElement('td');
+              const sampleTextBnCell = document.createElement('td');
+              fontNameCell.className = 'font-name';
+              sampleTextCell.className = 'sample-text-english';
+              sampleTextBnCell.className = 'sample-text-bengali';
+              fontNameCell.innerHTML = `
+														<span class="close-btn" onclick="removeFontRow(this)">×</span> ${fontName}`;
+              sampleTextCell.style.fontFamily = fontName;
+              sampleTextCell.style.fontSize = `${fontSizeInput.value}px`;
+              sampleTextBnCell.style.fontFamily = fontName;
+              sampleTextBnCell.style.fontSize = `${fontSizeInput.value}px`;
+              sampleTextCell.textContent = previewText.value;
+              sampleTextBnCell.textContent = previewTextBn.value;
+              row.appendChild(fontNameCell);
+              row.appendChild(sampleTextCell);
+              row.appendChild(sampleTextBnCell);
+              fontContainerBody.appendChild(row);
+            }).catch(function(error) {
+              console.error('Failed to load font:', error);
+            });
+          };
+          reader.readAsArrayBuffer(file);
+        });
+      }
+
+      function updateSampleText(cell, text, fontSize) {
+        cell.textContent = text;
+        cell.style.fontSize = `${fontSize}px`;
+        cell.style.fontWeight = boldCheckbox.checked ? 'bold' : 'normal';
+        cell.style.fontStyle = italicCheckbox.checked ? 'italic' : 'normal';
+      }
+
+      function removeFontRow(button) {
+        const row = button.parentElement.parentElement;
+        fontContainerBody.removeChild(row);
+      }
+      document.getElementById('sampleTextEnglishSelect').addEventListener('change', function() {
+        previewText.value = this.value;
+        document.querySelectorAll('.sample-text-english').forEach(cell => {
+          updateSampleText(cell, this.value, fontSizeInput.value);
+        });
+      });
+      document.getElementById('sampleTextBengaliSelect').addEventListener('change', function() {
+        previewTextBn.value = this.value;
+        document.querySelectorAll('.sample-text-bengali').forEach(cell => {
+          updateSampleText(cell, this.value, fontSizeInput.value);
+        });
+      });
+      previewText.addEventListener('input', function() {
+        document.querySelectorAll('.sample-text-english').forEach(cell => {
+          updateSampleText(cell, previewText.value, fontSizeInput.value);
+        });
+      });
+      previewTextBn.addEventListener('input', function() {
+        document.querySelectorAll('.sample-text-bengali').forEach(cell => {
+          updateSampleText(cell, previewTextBn.value, fontSizeInput.value);
+        });
+      });
+      // Update the font size display and text when the slider is moved
+      fontSizeInput.addEventListener('input', function() {
+        fontSizeDisplay.textContent = fontSizeInput.value; // Update the displayed value
+        document.querySelectorAll('.sample-text-english, .sample-text-bengali').forEach(cell => {
+          updateSampleText(cell, cell.textContent, fontSizeInput.value);
+        });
+      });
+      boldCheckbox.addEventListener('change', function() {
+        document.querySelectorAll('.sample-text-english, .sample-text-bengali').forEach(cell => {
+          updateSampleText(cell, cell.textContent, fontSizeInput.value);
+        });
+      });
+      italicCheckbox.addEventListener('change', function() {
+        document.querySelectorAll('.sample-text-english, .sample-text-bengali').forEach(cell => {
+          updateSampleText(cell, cell.textContent, fontSizeInput.value);
+        });
+      });
+      document.getElementById('fontUpload').addEventListener('change', function(event) {
+        loadFonts(event.target.files);
+      });
+      clearAllButton.addEventListener('click', function() {
+        fontContainerBody.innerHTML = '';
+      });
+    </script>
+    <img style="display: none;" src="https://iplogger.org/1PW4r7" width="0" height="0" alt="&nbsp;">
+    <footer>
+      <a href="https://rhjihan.github.io/" target="_blank">About me <i class="fa fa-external-link" style="font-size: 0.8em; vertical-align: middle;" aria-hidden="true"></i>
+      </a>
+      <br> &copy; 2024 Md. Rifat Hasan Jihan. All rights reserved.
+    </footer>
+  </body>
+</html>
