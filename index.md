@@ -1,18 +1,18 @@
 ---
-title: Francisco Estrada Garcia — Mechanical Design
+layout: single
+title: "About"
+author_profile: true
+classes: wide
+header:
+  overlay_image: /assets/img/hero.jpg   # pon una imagen ancha (1600px+)
+  overlay_filter: 0.25
 ---
-# Francisco Estrada Garcia
+
+# Francisco Estrada
 **Certified SOLIDWORKS Professional (CSWP)** + CSWPA (Mold, Surfacing, Weldments, Sheet Metal, Drawing).  
-CAD/CAM · Reverse engineering · Medical & industrial design.
+Mechanical & manufacturing design · CAD/CAM · Reverse Engineering.
 
-- Parametric CAD, STEP/IGES, drawings (ISO/ASME), renders  
-- 18+ years of experience
+- 18+ years designing for automotive, consumer, medical, and automation.  
+- Deliverables: parametric CAD, STEP/IGES, 2D drawings (ISO/ASME), renders, CAM.
 
-**Portfolio**
-- Industrial Camera — Parametric CAD & Renders  
-- Sheet Metal Bender — Motion & Renders  
-- Medical Ventilator (2020) — Full assembly + animation
-
-> Need a tailored preview for your project? I can share a private **Bid Pack** link.
-
-**Contact:** stradag@gmail.com
+{% include feature_row id="highlights" type="left" %}
