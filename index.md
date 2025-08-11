@@ -1,7 +1,7 @@
 ---
 title: Francisco Estrada Garcia — Mechanical Design
 ---
-# Francisco Estrada
+# Francisco Estrada Garcia
 **Certified SOLIDWORKS Professional (CSWP)** + CSWPA (Mold, Surfacing, Weldments, Sheet Metal, Drawing).  
 CAD/CAM · Reverse engineering · Medical & industrial design.
 
