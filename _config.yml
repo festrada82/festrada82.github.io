@@ -1,3 +1,36 @@
-title: Francisco Estrada — Mechanical Design
+title: Francisco Estrada Garcia — Mechanical Design
 description: SOLIDWORKS CSWP | CAD/CAM | Sheet Metal | Medical & Industrial
-theme: jekyll-theme-cayman
+url: "https://festrada82.github.io"
+# ← usa tu URL
+
+# --- Minimal Mistakes ---
+remote_theme: "mmistakes/minimal-mistakes"
+plugins:
+  - jekyll-include-cache
+
+# Opciones del tema
+locale: en
+logo: /assets/img/profile.jpg   # opcional
+search: false
+author:
+  name: "Francisco Estrada Garcia"
+  bio: "CSWP + CSWPA (Mold, Surfacing, Weldments, Sheet Metal, Drawing)"
+  avatar: "/assets/img/profile.jpg"
+
+# Colección para tus Bid Packs (páginas por propuesta)
+collections:
+  bids:
+    output: true
+    permalink: /bids/:name/
+
+# Defaults (plantillas por tipo de contenido)
+defaults:
+  - scope: { path: "", type: "bids" }
+    values:
+      layout: single
+      classes: wide
+      author_profile: false
+      toc: false
+      # meta para que no indexe en buscadores
+      head_scripts:
+        - "<meta name='robots' content='noindex, nofollow'>"
