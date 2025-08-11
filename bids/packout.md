@@ -4,7 +4,15 @@ title: Packout Magazine/Ammo Inserts — Bid Pack
 <meta name="robots" content="noindex, nofollow">
 
 # Packout Magazine/Ammo Inserts — Preview
-Measured in-store (Milwaukee 48-22-8435).
+
+## Notes about the photos
+
+The following photos were taken to dimension an **original, made-to-fit PACKOUT insert design**. Measurements were captured with a **digital caliper**.
+
+In three images you’ll see an **optional** method using **Scotch™ clear double-sided mounting tape** to place a small **3D-printed anchor** on the **inside wall opposite the latch (near the bottom)**. This anchor acts as a **hook/locating feature** where the **interchangeable inserts** (for different magazines) snap in and are retained.
+
+**No drilling or screws are required;** the case is **not permanently modified**. If you later want to use the toolbox for something else, the anchor can be **removed** to restore the case to its original condition.
+
 
 ## Gallery
 <style>
