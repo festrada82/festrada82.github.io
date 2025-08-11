@@ -1,24 +1,19 @@
 ---
-layout: default
+layout: single
 title: Curriculum Vitae — Francisco Estrada
 permalink: /cv/
+classes: wide
 ---
 
-# Francisco Estrada
-**Certified SOLIDWORKS Professional (CSWP)** + CSWPA (Mold, Surfacing, Weldments, Sheet Metal, Drawing).
+## Summary
+CSWP + CSWPA (Mold, Surfacing, Weldments, Sheet Metal, Drawing). 18+ years in mechanical & manufacturing design.
 
-- 18+ years · Mechanical & manufacturing design  
-- CAD/CAM · Reverse engineering · Medical & industrial
+## Certifications
+- CSWP (Mechanical & CAM)
+- CSWPA: Mold Tools, Surfacing, Weldments, Sheet Metal, Advanced Drawing
 
-[Download PDF](#) <!-- cambia cuando tengas el PDF -->
----
-title: Curriculum Vitae — Francisco Estrada
----
+## Experience
+- Freelance Mechanical Designer (2007–present): reverse engineering, tooling, medical prototypes, sheet metal, renders, CAM.
 
-# Francisco Estrada
-Certified SOLIDWORKS Professional (CSWP) + CSWPA (Mold, Surfacing, Weldments, Sheet Metal, Drawing).
-
-- 18+ years · Mechanical & manufacturing design
-- CAD/CAM · Reverse engineering · Medical & industrial
-
-[Descargar CV en PDF](#) <!-- cuando tengas PDF, pon la ruta -->
+## Contact
+tuemail@dominio.com · LinkedIn
