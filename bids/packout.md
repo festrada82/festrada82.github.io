@@ -1,6 +1,32 @@
 ---
 title: Packout Magazine/Ammo Inserts — Bid Pack
 ---
+<!-- Top link to CV -->
+<style>
+.top-links{
+  display:flex; justify-content:flex-end; gap:12px;
+  margin:.5rem 0 1rem;
+}
+.top-links a{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:.35rem .6rem; border:1px solid #e5e7eb; border-radius:8px;
+  text-decoration:none; font-weight:600; color:#0f172a; background:#fff;
+}
+.top-links a:hover{ background:#f6f8fa; border-color:#d0d7de; }
+.top-links svg{ width:18px; height:18px; }
+</style>
+
+<div class="top-links">
+  <a href="/cv/" title="View my CV">
+    <!-- briefcase icon (inline SVG, formal y liviano) -->
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M9 6V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1" stroke="#111827" stroke-width="1.7" stroke-linecap="round"/>
+      <rect x="3" y="6" width="18" height="13" rx="2.5" stroke="#111827" stroke-width="1.7"/>
+      <path d="M3 11h18" stroke="#111827" stroke-width="1.7"/>
+    </svg>
+    View CV
+  </a>
+</div>
 <meta name="robots" content="noindex, nofollow">
 
 # Packout Magazine/Ammo Inserts — Preview
