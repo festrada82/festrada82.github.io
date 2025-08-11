@@ -1,6 +1,6 @@
 ---
 layout: single
-title: Curriculum Vitae — Francisco Estrada
+title: Curriculum Vitae — Francisco Estrada Garcia
 permalink: /cv/
 classes: wide
 ---
@@ -16,4 +16,4 @@ CSWP + CSWPA (Mold, Surfacing, Weldments, Sheet Metal, Drawing). 18+ years in me
 - Freelance Mechanical Designer (2007–present): reverse engineering, tooling, medical prototypes, sheet metal, renders, CAM.
 
 ## Contact
-tuemail@dominio.com · LinkedIn
+stradag@gmail.com
