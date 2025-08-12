@@ -1443,9 +1443,4 @@ iframe {
     transform: scaleY(0);
   }
 }
-/* Indentar listas del About sin afectar el resto del sitio */
-#about .indent{
-  padding-left: 1.5rem;
-  margin-left: .25rem;
-}
-#about .indent li{ margin-bottom: .35rem; }
+
