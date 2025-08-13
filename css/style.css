@@ -1443,3 +1443,49 @@ iframe {
     transform: scaleY(0);
   }
 }
+
+/* ---- Contact cards ---- */
+#contact .contact-cards{
+  display:flex;
+  justify-content:center;
+  align-items:stretch;
+  gap:48px;
+  flex-wrap:wrap;
+  margin: 10px 0 24px;
+}
+#contact .contact-card{
+  text-align:center;
+  min-width:260px;
+}
+#contact .contact-icon{
+  font-size:56px;
+  line-height:1;
+  color:#0477BF;
+  margin-bottom:10px;
+}
+#contact .contact-title{
+  font-weight:700;
+  margin-bottom:4px;
+}
+#contact .contact-data .contact-link{
+  color:#1b2b4b;
+  text-decoration:none;
+  font-weight:500;
+}
+#contact .contact-data .contact-link:hover{
+  text-decoration:underline;
+}
+
+/* ---- Google form embed ---- */
+#iframeContainer{
+  max-width: 860px;
+  margin: 0 auto;
+  padding-top: 8px;
+}
+#iframeContainer iframe{
+  width:100%;
+  height: 1200px; /* ajusta si lo necesitas */
+  border:0;
+  border-radius:8px;
+  background:#fff;
+}
