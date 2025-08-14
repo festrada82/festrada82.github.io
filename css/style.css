@@ -1489,3 +1489,16 @@ iframe {
   border-radius:8px;
   background:#fff;
 }
+
+/* Portfolio: filtros en fila y con wrap */
+.portfolio .portfolio-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.portfolio .portfolio-filter button {
+  padding: 8px 14px;
+  border-radius: 999px;
+  line-height: 1;
+}
