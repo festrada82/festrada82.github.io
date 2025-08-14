@@ -27,11 +27,11 @@
 
   function label(id){
     const map = {
-      'sheet-metal':'Sheet Metal','molds-plastics':'Plastic & Molded Parts','cnc-cam':'CNC Parts & CAM',
-      'assemblies':'Assemblies & Mechanisms','reverse-eng':'Reverse Engineering','surfaces':'Surface Modeling',
-      'product-enclosures':'New Products / Enclosures','tooling-fixtures':'Jigs, Fixtures & Tooling',
+      'sheet_metal':'Sheet Metal','molds_plastics':'Plastic & Molded Parts','cnc_cam':'CNC Parts & CAM',
+      'assemblies':'Assemblies & Mechanisms','reverse_eng':'Reverse Engineering','surfaces':'Surface Modeling',
+      'product-enclosures':'New Products / Enclosures','tooling_fixtures':'Jigs, Fixtures & Tooling',
       'mechatronics':'Mechatronics (ESP32/PLC)','simulation':'Simulation (FEA/Motion)',
-      'drawings-bom':'Manufacturing Package','rendering':'Rendering & Animation','prototyping':'3D Printing & Prototyping'
+      'drawings_bom':'Manufacturing Package','rendering':'Rendering & Animation','prototyping':'3D Printing & Prototyping'
     };
     return map[id] || id;
   }
