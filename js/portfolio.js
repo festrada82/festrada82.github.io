@@ -29,7 +29,7 @@
     const map = {
       'sheet_metal':'Sheet Metal','molds_plastics':'Plastic & Molded Parts','cnc_cam':'CNC Parts & CAM',
       'assemblies':'Assemblies & Mechanisms','reverse_eng':'Reverse Engineering','surfaces':'Surface Modeling',
-      'product-enclosures':'New Products / Enclosures','tooling_fixtures':'Jigs, Fixtures & Tooling',
+      'product_enclosures':'New Products / Enclosures','tooling_fixtures':'Jigs, Fixtures & Tooling',
       'mechatronics':'Mechatronics (ESP32/PLC)','simulation':'Simulation (FEA/Motion)',
       'drawings_bom':'Manufacturing Package','rendering':'Rendering & Animation','prototyping':'3D Printing & Prototyping'
     };
