@@ -1499,6 +1499,6 @@ iframe {
 
 .portfolio .portfolio-filter button {
   padding: 8px 14px;
-  border-radius: 999px;
+  <!-- border-radius: 999px; -->
   line-height: 1;
 }
