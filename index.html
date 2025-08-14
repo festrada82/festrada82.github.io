@@ -540,7 +540,7 @@
          </section>
          <!-- About Section End -->
 
-  <!-- Portfolio Section -->
+<!-- Portfolio Section -->
 <section class="portfolio section" id="portfolio">
   <div class="container">
     <div class="row">
@@ -549,12 +549,10 @@
       </div>
     </div>
 
+    <!-- Filtros -->
     <div class="row">
-      <div class="portfolio-filter padd-15">
-        <!-- Reset -->
+      <div class="portfolio-filter padd-15" id="pf-filters">
         <button type="button" class="active" data-filter="all">All</button>
-
-        <!-- 13 categorías -->
         <button type="button" data-filter="sheet-metal">Sheet Metal</button>
         <button type="button" data-filter="molds-plastics">Plastic &amp; Molded Parts</button>
         <button type="button" data-filter="cnc-cam">CNC Parts &amp; CAM</button>
@@ -571,27 +569,33 @@
       </div>
     </div>
 
-    <!-- GRID / CARDS -->
-    <div class="row portfolio-grid">
-      <!-- Ejemplo de tarjeta (puedes duplicar y ajustar categorías en data-category) -->
-      <!--
-      <div class="portfolio-item padd-15" data-category="sheet-metal drawings-bom">
-        <div class="portfolio-item-inner shadow-dark">
-          <img src="bids/assets/img/Image1.webp" alt="Sheet-metal part">
-          <h4>Sheet-metal bracket</h4>
-          <span class="tags">Sheet Metal, Drawings</span>
-        </div>
-      </div>
-      -->
-    </div>
+    <!-- Separador fino -->
+    <hr class="pf-sep" />
 
-<!-- <div class="buttons padd-15" style="text-align: center">
-  <a href="https://www.behance.net/francisestrada45" target="_blank" class="btn">See More</a>
-</div>
-<br> -->
+    <!-- Grid de tarjetas -->
+    <div id="pf-grid" class="portfolio-grid"></div>
+
+    <!-- Paginación -->
+    <div id="pf-pager" class="pf-pager"></div>
   </div>
 </section>
 <!-- Portfolio Section End -->
+
+<!-- Overlay Detalle -->
+<div id="pf-detail" class="pf-detail hidden">
+  <div class="pf-detail-card">
+    <button class="pf-close" aria-label="Close">&times;</button>
+    <h3 id="pf-title"></h3>
+    <p id="pf-desc"></p>
+    <div id="pf-tags" class="pf-tags"></div>
+    <div id="pf-video" class="pf-video"></div>
+    <div id="pf-gallery" class="pf-gallery"></div>
+  </div>
+</div>
+
+<!-- JS del portfolio (debe estar antes de </body>) -->
+<script src="js/portfolio.js"></script>
+
 
 
        <!-- wlinks Section -->
