@@ -1547,7 +1547,7 @@ iframe {
 .portfolio .portfolio-filter{
   padding-bottom: 12px;        /* espacio para la línea */
   margin-bottom: 26px;         /* separación con el contenido */
-  border-bottom: 1px solid rgba(10,116,201,.18); /* azul muy sutil */
+  border-bottom: 2px solid rgba(10,116,201,.18); /* azul muy sutil */
 }
 
 /* (opcional) Si aún existe algún botón “See More” en otra parte del tema */
