@@ -1490,15 +1490,56 @@ iframe {
   background:#fff;
 }
 
-/* Portfolio: filtros en fila y con wrap */
-.portfolio .portfolio-filter {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+/* ---------- Portfolio filters: tab style ---------- */
+.portfolio .portfolio-filter{
+  display:flex;
+  flex-wrap:wrap;
+  column-gap:28px;     /* espacio horizontal entre tabs */
+  row-gap:14px;        /* salto de línea ordenado en pantallas pequeñas */
+  align-items:center;
 }
 
-.portfolio .portfolio-filter button {
-  padding: 8px 14px;
-  <!-- border-radius: 999px; -->
-  line-height: 1;
+.portfolio .portfolio-filter button{
+  background:transparent !important;
+  border:none !important;
+  border-radius:0 !important;
+  padding:8px 0 10px;  /* sin relleno lateral: se ven como texto */
+  font-weight:700;
+  color:#1e2a3a;       /* texto normal */
+  position:relative;
+  cursor:pointer;
+  transition:color .2s ease;
 }
+
+/* Línea inferior al pasar el cursor */
+.portfolio .portfolio-filter button::after{
+  content:"";
+  position:absolute;
+  left:0; bottom:-4px;
+  width:0; height:2px;
+  background:#0a74c9;               /* azul corporativo */
+  transition:width .25s ease;
+}
+
+/* Hover: color y línea parcial */
+.portfolio .portfolio-filter button:hover{
+  color:#0a74c9;
+}
+.portfolio .portfolio-filter button:hover::after{
+  width:60%;
+}
+
+/* Activo: color azul y línea completa */
+.portfolio .portfolio-filter button.active{
+  color:#0a74c9;
+}
+.portfolio .portfolio-filter button.active::after{
+  width:100%;
+}
+
+/* Accesibilidad: foco visible pero discreto */
+.portfolio .portfolio-filter button:focus-visible{
+  outline:2px solid rgba(10,116,201,.25);
+  outline-offset:2px;
+}
+
