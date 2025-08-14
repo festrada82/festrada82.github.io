@@ -1,7 +1,7 @@
 {
   "title": "Bender — Sheet Metal",
-  - "categories": "sheet_metal",
-+ "category": "sheet_metal",
+  "categories": "sheet_metal",
+  "category": "sheet_metal",
   "slug": "sheet-metal-bender",
   "date": "2025-08-10",
   "description": "A compact, bench-top sheet-metal bender/press-brake designed for repeatable small-part fabrication. The assembly is fully parametric in SOLIDWORKS (side plates, hinge, clamping beam, and interchangeable V-dies), with an adjustable back-gauge for consistent flange lengths and quick setup. The package includes DXF files for laser-cut plates, bend tables (K-factor/min bend radius), manufacturing drawings, exploded BOM, and a short demo video bending mild-steel sheet to 90°. Designed for rigidity, easy maintenance, and quick die swaps.",
