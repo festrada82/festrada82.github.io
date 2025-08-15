@@ -1672,4 +1672,20 @@ blockquote.instagram-media {
   padding-top: 56.25% !important;
 }
 
+/* mismo espacio que la galería (ajústalo a tu gusto) */
+.pf-video,
+.pf-reel{
+  margin-bottom: 16px;
+}
+
+/* evita margen cuando estén vacíos */
+.pf-video:empty,
+.pf-reel:empty{
+  margin: 0;
+}
+
+/* extra: si existen ambos, añade un margen arriba del reel */
+.pf-video:not(:empty) + .pf-reel:not(:empty){
+  margin-top: 16px;
+}
 
