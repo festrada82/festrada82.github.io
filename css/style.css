@@ -1618,3 +1618,22 @@ iframe {
   border-bottom:3px solid #0a74c9;
   padding-bottom:6px;
 }
+
+/* Relación 16:9 para iframes (YouTube o Shorts usados como “reel”) */
+.ratio {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%;
+}
+.ratio > iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Centrar el embed de Instagram si hace falta */
+blockquote.instagram-media {
+  margin: 0 auto !important;
+}
