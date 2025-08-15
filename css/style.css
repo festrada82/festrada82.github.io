@@ -1594,18 +1594,9 @@ iframe {
   border:1px solid rgba(4,119,191,.22); border-radius:999px; padding:4px 8px; margin:0 6px 6px 0;
 }
 
-/* Video (16:9) y Reel (9:16) */
-.pf-video{ margin:12px 0 10px; }
-.pf-reel { margin:10px 0 12px; }
 
-/* Ratio helpers para iframes */
-.ratio-16x9, .ratio-16x9 { position: relative; width: 100%; }
-.ratio-16x9::before { content: ""; display: block; padding-top: 56.25%; }   /* 16:9 */
-.ratio-16x9::before { content: ""; display: block; padding-top: 177.78%; }  /* 9:16 */
-.ratio-16x9 > iframe,
-.ratio-16x9 > iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-/* Mantén tus .ratio, .ratio-16x9, etc. y añade: */
-#pf-reel .ratio { padding-top: 56.25% !important; } /* fuerza 16:9 para reel */
+
+
 
 
 /* Galería 2×2 */
@@ -1660,38 +1651,28 @@ blockquote.instagram-media {
   border:1px solid rgba(4,119,191,.22); border-radius:999px; padding:4px 8px; margin:0 6px 6px 0;
 }
 
-/* Video y Reel */
-.pf-video{ margin:12px 0 10px; }
-.pf-reel { margin:10px 0 12px; }
 
-/* Helpers de relación de aspecto */
-.ratio-16x9, .ratio-16x9 { position:relative; width:100%; }
-.ratio-16x9::before { content:""; display:block; padding-top:56.25%; }   /* 16:9 */
-.ratio-9x16::before { content:""; display:block; padding-top:177.78%; }  /* 9:16 */
-.ratio-16x9 > iframe,
-.ratio-9x16 > iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
 
-/* Fuerza el REEL a 16:9 (misma altura que el video) */
-#pf-reel .ratio-16x9::before { padding-top:56.25% !important; }
 
 /* Galería 2×2 */
 .pf-gallery{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
 .pf-gallery img{ width:100%; height:auto; border-radius:10px; display:block; }
 
-
-/* Helpers de proporción y iframes */
+/* === Media Ratios (16:9 for both video & reel) === */
 .ratio { position: relative; width: 100%; }
 .ratio > iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
-/* 16:9 para ambos (video y reel) */
+/* Único helper que usamos */
 .ratio-16x9::before {
   content: "";
   display: block;
-  padding-top: 56.25%;
+  padding-top: 56.25%; /* 16:9 */
 }
 
-/* Forzar 16:9 específicamente en los contenedores por si quedó algún estilo previo */
+/* Por si queda alguna regla vieja en cascada, refuérzalo aquí */
 #pf-video .ratio-16x9::before,
 #pf-reel  .ratio-16x9::before {
   padding-top: 56.25% !important;
 }
+
+
