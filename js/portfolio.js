@@ -12,6 +12,7 @@
   const descEl   = document.getElementById('pf-desc');
   const tagsEl   = document.getElementById('pf-tags');
   const videoEl  = document.getElementById('pf-video');
+  const reelEl   = document.getElementById('pf-reel');     // NUEVO
   const galEl    = document.getElementById('pf-gallery');
 
   // ---------------------------
@@ -54,15 +55,13 @@
   }
 
   // ---------------------------
-  // Utilidades de categorías
+  // Utilidades de categorías (múltiples)
   // ---------------------------
-  // Devuelve siempre un array de categorías para un proyecto
   function catsOf(p) {
     if (Array.isArray(p.categories)) return p.categories;
     if (typeof p.category === 'string' && p.category) return [p.category];
     return [];
   }
-  // ¿El proyecto pertenece a la categoría "cat"?
   function inCat(p, cat) {
     return catsOf(p).includes(cat);
   }
@@ -94,7 +93,7 @@
       const card = document.createElement('div');
       card.className = 'pf-card';
 
-      // Guarda todas las categorías en data-attribute (útil para CSS o inspección)
+      // Guarda todas las categorías
       card.setAttribute('data-category', cats.join(' '));
       card.dataset.categories = cats.join(' ');
 
@@ -125,7 +124,7 @@
     pager.appendChild(prev);
 
     // Números (ventana máx 7)
-    const win = 3; // (evita usar "window" como nombre)
+    const win = 3;
     let a = Math.max(1, STATE.page - win),
         b = Math.min(pages, STATE.page + win);
     for (let i = a; i <= b; i++) {
@@ -152,15 +151,18 @@
     descEl.textContent  = p.description || '';
     tagsEl.innerHTML    = (p.tags || []).map(t => `<span class="tag">${t}</span>`).join('');
 
-    // Video (opcional)
+    // Video (opcional) — YouTube normal o Shorts
     if (p.video) {
-      const src = toEmbed(p.video);
+      const src = toEmbedYouTube(p.video);
       videoEl.innerHTML = `<div class="ratio"><iframe src="${src}" allowfullscreen loading="lazy"></iframe></div>`;
     } else {
       videoEl.innerHTML = '';
     }
 
-    // Galería: usa la lista declarada en project.json
+    // Reel (opcional) — Instagram o YouTube (Shorts)
+    renderReel(p.reel || '');
+
+    // Galería (2×2)
     const imgs = (p.images && p.images.length) ? p.images : [];
     galEl.innerHTML = imgs.map(fn => `<img src="${p.base}/${fn}" alt="${p.title}">`).join('');
 
@@ -168,17 +170,73 @@
     document.body.style.overflow = 'hidden';
   }
 
-  function toEmbed(url) {
+  // ---------------------------
+  // Embeds
+  // ---------------------------
+  function toEmbedYouTube(url) {
     try {
-      if (url.includes('youtu.be/')) {
+      // youtu.be/<id>
+      if (/youtu\.be\//.test(url)) {
         const id = url.split('youtu.be/')[1].split(/[?&]/)[0];
         return `https://www.youtube.com/embed/${id}?rel=0`;
       }
-      const u = new URL(url);
-      const id = u.searchParams.get('v');
-      return `https://www.youtube.com/embed/${id}?rel=0`;
+      // youtube.com/shorts/<id>
+      if (/youtube\.com\/shorts\//.test(url)) {
+        const id = url.split('/shorts/')[1].split(/[?&]/)[0];
+        return `https://www.youtube.com/embed/${id}?rel=0`;
+      }
+      // youtube.com/watch?v=<id>
+      if (/youtube\.com/.test(url)) {
+        const u = new URL(url);
+        const id = u.searchParams.get('v');
+        if (id) return `https://www.youtube.com/embed/${id}?rel=0`;
+      }
+      return url;
     } catch (e) {
       return url;
+    }
+  }
+
+  function ensureInstagramScript() {
+    if (document.getElementById('ig-embed-js')) return;
+    const s = document.createElement('script');
+    s.id = 'ig-embed-js';
+    s.async = true;
+    s.src = 'https://www.instagram.com/embed.js';
+    document.body.appendChild(s);
+  }
+
+  function renderReel(url) {
+    reelEl.innerHTML = '';
+    if (!url) return; // sin hueco
+
+    // Instagram Reel
+    if (url.includes('instagram.com') || url.includes('instagr.am')) {
+      // Nota: la publicación debe ser pública
+      reelEl.innerHTML = `
+        <blockquote class="instagram-media"
+                    data-instgrm-permalink="${url}"
+                    data-instgrm-version="14"
+                    style="background:#fff; border:0; margin:0 auto; max-width:540px; width:100%;">
+        </blockquote>
+      `;
+      ensureInstagramScript();
+      // Procesa cuando el script ya cargó
+      const tryProcess = () => {
+        if (window.instgrm && window.instgrm.Embeds && window.instgrm.Embeds.process) {
+          window.instgrm.Embeds.process();
+        } else {
+          setTimeout(tryProcess, 200);
+        }
+      };
+      tryProcess();
+      return;
+    }
+
+    // YouTube (Shorts o normal) como “reel”
+    if (url.includes('youtu')) {
+      const src = toEmbedYouTube(url);
+      reelEl.innerHTML = `<div class="ratio"><iframe src="${src}" allowfullscreen loading="lazy"></iframe></div>`;
     }
   }
 
