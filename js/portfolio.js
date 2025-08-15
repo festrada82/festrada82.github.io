@@ -36,6 +36,17 @@
     return map[id] || id;
   }
 
+  // Devuelve las categorías del proyecto como array
+function catsOf(p) {
+  if (Array.isArray(p.categories)) return p.categories;
+  if (typeof p.category === 'string' && p.category) return [p.category];
+  return [];
+}
+function inCat(p, cat) {
+  return catsOf(p).includes(cat);
+}
+
+
   function filtered(){
     return STATE.filter==='all' ? projects : projects.filter(p=>p.category===STATE.filter);
   }
