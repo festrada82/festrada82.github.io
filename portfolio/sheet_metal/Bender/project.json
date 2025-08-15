@@ -4,8 +4,7 @@
   "category": "sheet_metal",
   "slug": "sheet-metal-bender",
   "date": "2025-08-10",
-  "description": "A compact, bench-top sheet-metal bender/press-brake designed for repeatable small-part fabrication. The assembly is fully parametric in SOLIDWORKS (side plates, hinge, clamping beam, and interchangeable V-dies), with an adjustable back-gauge for consistent flange lengths and quick setup. Legal note:
-This is an original CAD interpretation for educational and portfolio purposes only. It is not an exact reproduction, not affiliated with any manufacturer, and not intended for commercial manufacturing. All trademarks and design rights remain with their respective owners.",
+  "description": "A compact, bench-top sheet-metal bender/press-brake designed for repeatable small-part fabrication. The assembly is fully parametric in SOLIDWORKS (side plates, hinge, clamping beam, and interchangeable V-dies), with an adjustable back-gauge for consistent flange lengths and quick setup. Legal note: This is an original CAD interpretation for educational and portfolio purposes only. It is not an exact reproduction, not affiliated with any manufacturer, and not intended for commercial manufacturing. All trademarks and design rights remain with their respective owners.",
   "tags": ["Sheet Metal","Press Brake","Back Gauge","Bend Allowance",
  "K-Factor","DXF Flat Pattern","Bend Table","Min Bend Radius",
  "Parametric CAD","SOLIDWORKS","BOM","Manufacturing Drawings"],
