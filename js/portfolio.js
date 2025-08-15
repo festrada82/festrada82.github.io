@@ -1,3 +1,5 @@
+<script>
+// js/portfolio.js
 (async function () {
   // Estado y refs
   const STATE = { filter: 'all', page: 1, pageSize: 8 };
@@ -12,12 +14,10 @@
   const descEl   = document.getElementById('pf-desc');
   const tagsEl   = document.getElementById('pf-tags');
   const videoEl  = document.getElementById('pf-video');
-  const reelEl   = document.getElementById('pf-reel');     // NUEVO
+  const reelEl   = document.getElementById('pf-reel');
   const galEl    = document.getElementById('pf-gallery');
 
-  // ---------------------------
-  // Carga de índice maestro
-  // ---------------------------
+  // Carga índice maestro
   const idx = await fetch('portfolio/index.json')
     .then(r => r.json())
     .catch(() => ({ projects: [] }));
@@ -26,7 +26,7 @@
   const projects = [];
   for (const item of idx.projects) {
     try {
-      const base = item.path.replace(/\/$/, ''); // sin barra final
+      const base = item.path.replace(/\/$/, '');
       const data = await fetch(`${base}/project.json`).then(r => r.json());
       projects.push({ ...data, base });
     } catch (e) {
@@ -54,31 +54,20 @@
     return map[id] || id;
   }
 
-  // ---------------------------
-  // Utilidades de categorías (múltiples)
-  // ---------------------------
+  // ---- utilidades de categorías (múltiples)
   function catsOf(p) {
     if (Array.isArray(p.categories)) return p.categories;
     if (typeof p.category === 'string' && p.category) return [p.category];
     return [];
   }
-  function inCat(p, cat) {
-    return catsOf(p).includes(cat);
-  }
+  function inCat(p, cat) { return catsOf(p).includes(cat); }
 
-  // ---------------------------
-  // Filtrado, render y paginación
-  // ---------------------------
+  // ---- filtrado y render
   function filtered() {
-    return STATE.filter === 'all'
-      ? projects
-      : projects.filter(p => inCat(p, STATE.filter));
+    return STATE.filter === 'all' ? projects : projects.filter(p => inCat(p, STATE.filter));
   }
 
-  function render() {
-    renderCards();
-    renderPager();
-  }
+  function render() { renderCards(); renderPager(); }
 
   function renderCards() {
     grid.innerHTML = '';
@@ -92,8 +81,7 @@
 
       const card = document.createElement('div');
       card.className = 'pf-card';
-
-      // Guarda todas las categorías
+      // guarda todas las categorías para data-attributes
       card.setAttribute('data-category', cats.join(' '));
       card.dataset.categories = cats.join(' ');
 
@@ -102,8 +90,7 @@
         <div class="pf-meta">
           <div class="pf-cat">${catText}</div>
           <div class="pf-title">${p.title}</div>
-        </div>
-      `;
+        </div>`;
       card.onclick = () => openDetail(p);
       grid.appendChild(card);
     });
@@ -116,14 +103,12 @@
 
     pager.innerHTML = '';
 
-    // Prev
     const prev = document.createElement('button');
     prev.textContent = 'Prev';
     prev.disabled = STATE.page === 1;
     prev.onclick = () => { STATE.page--; render(); };
     pager.appendChild(prev);
 
-    // Números (ventana máx 7)
     const win = 3;
     let a = Math.max(1, STATE.page - win),
         b = Math.min(pages, STATE.page + win);
@@ -135,7 +120,6 @@
       pager.appendChild(btn);
     }
 
-    // Next
     const next = document.createElement('button');
     next.textContent = 'Next';
     next.disabled = STATE.page === pages;
@@ -143,15 +127,13 @@
     pager.appendChild(next);
   }
 
-  // ---------------------------
-  // Detalle (overlay)
-  // ---------------------------
+  // ---- detalle (overlay)
   function openDetail(p) {
     titleEl.textContent = p.title;
     descEl.textContent  = p.description || '';
     tagsEl.innerHTML    = (p.tags || []).map(t => `<span class="tag">${t}</span>`).join('');
 
-    // Video (opcional) — YouTube normal o Shorts
+    // YouTube (16:9)
     if (p.video) {
       const src = toEmbedYouTube(p.video);
       videoEl.innerHTML = `<div class="ratio-16x9"><iframe src="${src}" allowfullscreen loading="lazy"></iframe></div>`;
@@ -159,9 +141,8 @@
       videoEl.innerHTML = '';
     }
 
-    // Reel (opcional) — Instagram o YouTube (Shorts)
-    reelEl.innerHTML = `<div class="ratio-9x16"><iframe src="${src}" allowfullscreen loading="lazy"></iframe></div>`;
-
+    // Reel (Instagram o YouTube Shorts) — 9:16
+    renderReel(p.reel || '');
 
     // Galería (2×2)
     const imgs = (p.images && p.images.length) ? p.images : [];
@@ -171,31 +152,24 @@
     document.body.style.overflow = 'hidden';
   }
 
-  // ---------------------------
-  // Embeds
-  // ---------------------------
+  // ---- helpers de embed
   function toEmbedYouTube(url) {
     try {
-      // youtu.be/<id>
       if (/youtu\.be\//.test(url)) {
         const id = url.split('youtu.be/')[1].split(/[?&]/)[0];
         return `https://www.youtube.com/embed/${id}?rel=0`;
       }
-      // youtube.com/shorts/<id>
       if (/youtube\.com\/shorts\//.test(url)) {
         const id = url.split('/shorts/')[1].split(/[?&]/)[0];
         return `https://www.youtube.com/embed/${id}?rel=0`;
       }
-      // youtube.com/watch?v=<id>
       if (/youtube\.com/.test(url)) {
         const u = new URL(url);
         const id = u.searchParams.get('v');
         if (id) return `https://www.youtube.com/embed/${id}?rel=0`;
       }
       return url;
-    } catch (e) {
-      return url;
-    }
+    } catch (e) { return url; }
   }
 
   function ensureInstagramScript() {
@@ -211,18 +185,15 @@
     reelEl.innerHTML = '';
     if (!url) return; // sin hueco
 
-    // Instagram Reel
+    // Instagram (la publicación debe ser pública)
     if (url.includes('instagram.com') || url.includes('instagr.am')) {
-      // Nota: la publicación debe ser pública
       reelEl.innerHTML = `
         <blockquote class="instagram-media"
                     data-instgrm-permalink="${url}"
                     data-instgrm-version="14"
                     style="background:#fff; border:0; margin:0 auto; max-width:540px; width:100%;">
-        </blockquote>
-      `;
+        </blockquote>`;
       ensureInstagramScript();
-      // Procesa cuando el script ya cargó
       const tryProcess = () => {
         if (window.instgrm && window.instgrm.Embeds && window.instgrm.Embeds.process) {
           window.instgrm.Embeds.process();
@@ -234,10 +205,10 @@
       return;
     }
 
-    // YouTube (Shorts o normal) como “reel”
+    // YouTube (Shorts o normal) presentado como reel (vertical)
     if (url.includes('youtu')) {
       const src = toEmbedYouTube(url);
-      reelEl.innerHTML = `<div class="ratio"><iframe src="${src}" allowfullscreen loading="lazy"></iframe></div>`;
+      reelEl.innerHTML = `<div class="ratio-9x16"><iframe src="${src}" allowfullscreen loading="lazy"></iframe></div>`;
     }
   }
 
@@ -246,23 +217,19 @@
     detail.classList.add('hidden');
     document.body.style.overflow = '';
   };
-  detail.addEventListener('click', e => {
-    if (e.target === detail) closeBtn.click();
-  });
+  detail.addEventListener('click', e => { if (e.target === detail) closeBtn.click(); });
 
-  // Click en filtros
+  // Filtros
   filters.addEventListener('click', e => {
     if (e.target.tagName !== 'BUTTON') return;
     STATE.filter = e.target.getAttribute('data-filter');
     STATE.page = 1;
-
-    // UI activa
     [...filters.querySelectorAll('button')].forEach(b => b.classList.remove('active'));
     e.target.classList.add('active');
-
     render();
   });
 
   // Inicial
   render();
 })();
+</script>
