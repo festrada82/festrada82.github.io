@@ -54,7 +54,7 @@
     return ids.map(label).join(' • ');
   }
 
-  // Videos (YouTube) 16:9
+  // Videos (YouTube)
   function toYouTubeEmbed(url) {
     try {
       if (!url) return '';
@@ -75,18 +75,15 @@
     }
   }
 
-  // Reels 9:16 (YouTube Shorts o Instagram)
+  // Reels (YouTube Shorts o Instagram)
   function toReelEmbed(url) {
     try {
       if (!url) return '';
-      // YouTube Shorts
       if (/youtube\.com\/shorts\//.test(url) || /youtu\.be\//.test(url)) {
-        return toYouTubeEmbed(url); // ya resuelve Shorts también
+        return toYouTubeEmbed(url); // Shorts
       }
-      // Instagram (post/reel)
       if (/instagram\.com/.test(url)) {
-        // Instagram requiere script externo; usamos iframe sin script (limitado)
-        return url;
+        return url; // usaremos /embed al pintar
       }
       return '';
     } catch {
@@ -133,10 +130,9 @@
       const card = document.createElement('div');
       card.className = 'pf-card';
 
-      // dataset para posibles usos (no obligatorio)
       card.dataset.categories = catsOf(p).join(' ');
-
       const catText = labelList(catsOf(p));
+
       card.innerHTML = `
         <img class="pf-thumb" src="${p.base}/cover.jpg" alt="${p.title || ''}">
         <div class="pf-meta">
@@ -162,7 +158,7 @@
     prev.onclick = () => { STATE.page--; render(); };
     pager.appendChild(prev);
 
-    // Números (ventana compacta)
+    // Números
     const W = 3;
     let a = Math.max(1, STATE.page - W);
     let b = Math.min(pages, STATE.page + W);
@@ -187,9 +183,9 @@
     if (!detail) return;
 
     // Título
-    titleEl && (titleEl.textContent = p.title || '');
+    if (titleEl) titleEl.textContent = p.title || '';
 
-    // Descripción (HTML permitido)
+    // Descripción (HTML permitido con fallback)
     const desc = (p.description_html ?? p.description ?? '');
     if (descEl) descEl.innerHTML = String(desc).replace(/\n/g, '<br>');
 
@@ -199,29 +195,28 @@
       tagsEl.innerHTML = tags.map(t => `<span class="tag">${t}</span>`).join('');
     }
 
-    // Video (16:9)
+    // Video — FORZADO a 26:9
     if (videoEl) {
       const v = toYouTubeEmbed(p.video || '');
       videoEl.innerHTML = v
-        ? `<div class="ratio ratio-16x9"><iframe src="${v}" allowfullscreen loading="lazy" title="Video"></iframe></div>`
+        ? `<div class="ratio ratio-26x9"><iframe src="${v}" allowfullscreen loading="lazy" title="Video"></iframe></div>`
         : '';
     }
 
-    // Reel (9:16)
+    // Reel — TAMBIÉN a 26:9 (misma altura que el video)
     if (reelEl) {
       const r = toReelEmbed(p.reel || '');
       if (!r) {
         reelEl.innerHTML = '';
       } else if (/instagram\.com/.test(r)) {
-        // Fallback sencillo para Instagram
         reelEl.innerHTML = `
-          <div class="ratio ratio-9x16">
+          <div class="ratio ratio-26x9">
             <iframe src="${r}embed" allowfullscreen loading="lazy" title="Reel"></iframe>
           </div>`;
       } else {
         // Shorts / YouTube
         reelEl.innerHTML = `
-          <div class="ratio ratio-9x16">
+          <div class="ratio ratio-26x9">
             <iframe src="${r}" allowfullscreen loading="lazy" title="Reel"></iframe>
           </div>`;
       }
@@ -243,9 +238,8 @@
     if (!detail) return;
     detail.classList.add('hidden');
     document.body.style.overflow = '';
-    // Limpieza ligera (opcional)
     if (videoEl) videoEl.innerHTML = '';
-    if (reelEl) reelEl.innerHTML = '';
+    if (reelEl)  reelEl.innerHTML  = '';
   }
 
   closeBtn && (closeBtn.onclick = closeDetail);
@@ -260,7 +254,6 @@
       if (!(b instanceof HTMLButtonElement)) return;
       STATE.filter = b.getAttribute('data-filter') || 'all';
       STATE.page = 1;
-      // UI activa
       [...filters.querySelectorAll('button')].forEach(x => x.classList.remove('active'));
       b.classList.add('active');
       render();
