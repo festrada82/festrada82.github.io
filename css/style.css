@@ -1554,9 +1554,6 @@ iframe {
 .portfolio .buttons{ display:none; }
 
 
-/* Separador bajo filtros 
-.pf-sep{border:0;border-top:1px solid rgba(10,116,201,.18);margin:20px 0 28px}*/
-
 /* Grid de tarjetas */
 .portfolio-grid{
   display:grid; gap:18px;
