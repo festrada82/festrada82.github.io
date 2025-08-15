@@ -1,4 +1,3 @@
-<script>
 // js/portfolio.js
 (async function () {
   // Estado y refs
@@ -17,7 +16,9 @@
   const reelEl   = document.getElementById('pf-reel');
   const galEl    = document.getElementById('pf-gallery');
 
-  // Carga índice maestro
+  // ---------------------------
+  // Cargar índice maestro
+  // ---------------------------
   const idx = await fetch('portfolio/index.json')
     .then(r => r.json())
     .catch(() => ({ projects: [] }));
@@ -37,24 +38,24 @@
   // Mapa legible de categorías
   function label(id) {
     const map = {
-      'sheet_metal': 'Sheet Metal',
-      'molds_plastics': 'Plastic & Molded Parts',
-      'cnc_cam': 'CNC Parts & CAM',
-      'assemblies': 'Assemblies & Mechanisms',
-      'reverse_eng': 'Reverse Engineering',
-      'surfaces': 'Surface Modeling',
-      'product_enclosures': 'New Products / Enclosures',
-      'tooling_fixtures': 'Jigs, Fixtures & Tooling',
-      'mechatronics': 'Mechatronics (ESP32/PLC)',
-      'simulation': 'Simulation (FEA/Motion)',
-      'drawings_bom': 'Manufacturing Package',
-      'rendering': 'Rendering & Animation',
-      'prototyping': '3D Printing & Prototyping'
+      sheet_metal: 'Sheet Metal',
+      molds_plastics: 'Plastic & Molded Parts',
+      cnc_cam: 'CNC Parts & CAM',
+      assemblies: 'Assemblies & Mechanisms',
+      reverse_eng: 'Reverse Engineering',
+      surfaces: 'Surface Modeling',
+      product_enclosures: 'New Products / Enclosures',
+      tooling_fixtures: 'Jigs, Fixtures & Tooling',
+      mechatronics: 'Mechatronics (ESP32/PLC)',
+      simulation: 'Simulation (FEA/Motion)',
+      drawings_bom: 'Manufacturing Package',
+      rendering: 'Rendering & Animation',
+      prototyping: '3D Printing & Prototyping',
     };
     return map[id] || id;
   }
 
-  // ---- utilidades de categorías (múltiples)
+  // Utilidades de categorías (múltiples)
   function catsOf(p) {
     if (Array.isArray(p.categories)) return p.categories;
     if (typeof p.category === 'string' && p.category) return [p.category];
@@ -62,13 +63,18 @@
   }
   function inCat(p, cat) { return catsOf(p).includes(cat); }
 
-  // ---- filtrado y render
+  // Filtrado
   function filtered() {
     return STATE.filter === 'all' ? projects : projects.filter(p => inCat(p, STATE.filter));
   }
 
-  function render() { renderCards(); renderPager(); }
+  // Render general
+  function render() {
+    renderCards();
+    renderPager();
+  }
 
+  // Tarjetas
   function renderCards() {
     grid.innerHTML = '';
     const list  = filtered();
@@ -81,7 +87,8 @@
 
       const card = document.createElement('div');
       card.className = 'pf-card';
-      // guarda todas las categorías para data-attributes
+
+      // Guarda todas las categorías
       card.setAttribute('data-category', cats.join(' '));
       card.dataset.categories = cats.join(' ');
 
@@ -96,6 +103,7 @@
     });
   }
 
+  // Paginación
   function renderPager() {
     const list  = filtered();
     const pages = Math.max(1, Math.ceil(list.length / STATE.pageSize));
@@ -110,8 +118,7 @@
     pager.appendChild(prev);
 
     const win = 3;
-    let a = Math.max(1, STATE.page - win),
-        b = Math.min(pages, STATE.page + win);
+    let a = Math.max(1, STATE.page - win), b = Math.min(pages, STATE.page + win);
     for (let i = a; i <= b; i++) {
       const btn = document.createElement('button');
       btn.textContent = i;
@@ -127,13 +134,13 @@
     pager.appendChild(next);
   }
 
-  // ---- detalle (overlay)
+  // Detalle (overlay)
   function openDetail(p) {
     titleEl.textContent = p.title;
     descEl.textContent  = p.description || '';
     tagsEl.innerHTML    = (p.tags || []).map(t => `<span class="tag">${t}</span>`).join('');
 
-    // YouTube (16:9)
+    // Video YouTube 16:9
     if (p.video) {
       const src = toEmbedYouTube(p.video);
       videoEl.innerHTML = `<div class="ratio-16x9"><iframe src="${src}" allowfullscreen loading="lazy"></iframe></div>`;
@@ -141,10 +148,10 @@
       videoEl.innerHTML = '';
     }
 
-    // Reel (Instagram o YouTube Shorts) — 9:16
+    // Reel (YouTube Shorts o Instagram) 9:16
     renderReel(p.reel || '');
 
-    // Galería (2×2)
+    // Galería 2×2
     const imgs = (p.images && p.images.length) ? p.images : [];
     galEl.innerHTML = imgs.map(fn => `<img src="${p.base}/${fn}" alt="${p.title}">`).join('');
 
@@ -152,74 +159,11 @@
     document.body.style.overflow = 'hidden';
   }
 
-  // ---- helpers de embed
-  function toEmbedYouTube(url) {
-    try {
-      if (/youtu\.be\//.test(url)) {
-        const id = url.split('youtu.be/')[1].split(/[?&]/)[0];
-        return `https://www.youtube.com/embed/${id}?rel=0`;
-      }
-      if (/youtube\.com\/shorts\//.test(url)) {
-        const id = url.split('/shorts/')[1].split(/[?&]/)[0];
-        return `https://www.youtube.com/embed/${id}?rel=0`;
-      }
-      if (/youtube\.com/.test(url)) {
-        const u = new URL(url);
-        const id = u.searchParams.get('v');
-        if (id) return `https://www.youtube.com/embed/${id}?rel=0`;
-      }
-      return url;
-    } catch (e) { return url; }
-  }
-
-  function ensureInstagramScript() {
-    if (document.getElementById('ig-embed-js')) return;
-    const s = document.createElement('script');
-    s.id = 'ig-embed-js';
-    s.async = true;
-    s.src = 'https://www.instagram.com/embed.js';
-    document.body.appendChild(s);
-  }
-
-  function renderReel(url) {
-    reelEl.innerHTML = '';
-    if (!url) return; // sin hueco
-
-    // Instagram (la publicación debe ser pública)
-    if (url.includes('instagram.com') || url.includes('instagr.am')) {
-      reelEl.innerHTML = `
-        <blockquote class="instagram-media"
-                    data-instgrm-permalink="${url}"
-                    data-instgrm-version="14"
-                    style="background:#fff; border:0; margin:0 auto; max-width:540px; width:100%;">
-        </blockquote>`;
-      ensureInstagramScript();
-      const tryProcess = () => {
-        if (window.instgrm && window.instgrm.Embeds && window.instgrm.Embeds.process) {
-          window.instgrm.Embeds.process();
-        } else {
-          setTimeout(tryProcess, 200);
-        }
-      };
-      tryProcess();
-      return;
-    }
-
-    // YouTube (Shorts o normal) presentado como reel (vertical)
-    if (url.includes('youtu')) {
-      const src = toEmbedYouTube(url);
-      reelEl.innerHTML = `<div class="ratio-9x16"><iframe src="${src}" allowfullscreen loading="lazy"></iframe></div>`;
-    }
-  }
-
   // Cerrar overlay
-  closeBtn.onclick = () => {
-    detail.classList.add('hidden');
-    document.body.style.overflow = '';
-  };
+  closeBtn.onclick = () => { detail.classList.add('hidden'); document.body.style.overflow = ''; };
   detail.addEventListener('click', e => { if (e.target === detail) closeBtn.click(); });
 
-  // Filtros
+  // Filtros (tabs)
   filters.addEventListener('click', e => {
     if (e.target.tagName !== 'BUTTON') return;
     STATE.filter = e.target.getAttribute('data-filter');
@@ -229,7 +173,34 @@
     render();
   });
 
+  // Helpers de embed
+  function toEmbedYouTube(url) {
+    try {
+      let id = '';
+      if (url.includes('youtu.be/')) {
+        id = url.split('youtu.be/')[1].split(/[?&]/)[0];
+      } else {
+        const u = new URL(url);
+        if (u.pathname.startsWith('/shorts/')) id = u.pathname.split('/shorts/')[1].split('/')[0];
+        else id = u.searchParams.get('v');
+      }
+      return `https://www.youtube.com/embed/${id}?rel=0`;
+    } catch (e) { return url; }
+  }
+
+  function renderReel(url='') {
+    if (!url) { reelEl.innerHTML = ''; return; }
+    let html = '';
+    if (/instagram\.com/i.test(url)) {
+      const m = url.match(/instagram\.com\/(reel|p)\/([^/?#]+)/i);
+      if (m) html = `<div class="ratio-9x16"><iframe src="https://www.instagram.com/${m[1]}/${m[2]}/embed" allowfullscreen loading="lazy"></iframe></div>`;
+    } else {
+      const src = toEmbedYouTube(url); // también sirve para Shorts
+      html = `<div class="ratio-9x16"><iframe src="${src}" allowfullscreen loading="lazy"></iframe></div>`;
+    }
+    reelEl.innerHTML = html;
+  }
+
   // Inicial
   render();
 })();
-</script>
