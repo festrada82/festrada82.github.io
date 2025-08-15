@@ -149,7 +149,17 @@
     }
 
     // Reel (YouTube Shorts o Instagram) 9:16
-    renderReel(p.reel || '');
+    //renderReel(p.reel || '');
+    
+    // Reel (YouTube Shorts o Instagram) 16:9
+    if (p.reel) {
+  const src = toEmbedReel(p.reel); // tu función que construye el embed de Shorts
+  reelEl.innerHTML =
+    `<div class="ratio ratio-16x9"><iframe src="${src}" allowfullscreen loading="lazy"></iframe></div>`;
+} else {
+  reelEl.innerHTML = '';
+}
+
 
     // Galería 2×2
     const imgs = (p.images && p.images.length) ? p.images : [];
