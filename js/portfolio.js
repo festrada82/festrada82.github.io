@@ -154,13 +154,14 @@
     // Video (opcional) — YouTube normal o Shorts
     if (p.video) {
       const src = toEmbedYouTube(p.video);
-      videoEl.innerHTML = `<div class="ratio"><iframe src="${src}" allowfullscreen loading="lazy"></iframe></div>`;
+      videoEl.innerHTML = `<div class="ratio-16x9"><iframe src="${src}" allowfullscreen loading="lazy"></iframe></div>`;
     } else {
       videoEl.innerHTML = '';
     }
 
     // Reel (opcional) — Instagram o YouTube (Shorts)
-    renderReel(p.reel || '');
+    reelEl.innerHTML = `<div class="ratio-9x16"><iframe src="${src}" allowfullscreen loading="lazy"></iframe></div>`;
+
 
     // Galería (2×2)
     const imgs = (p.images && p.images.length) ? p.images : [];
