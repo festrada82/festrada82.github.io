@@ -1594,10 +1594,23 @@ iframe {
   border:1px solid rgba(4,119,191,.22); border-radius:999px; padding:4px 8px; margin:0 6px 6px 0;
 }
 
-/* Video ratio 16:9 */
-.pf-video{margin:12px 0 10px}
-.pf-video .ratio{position:relative;width:100%;padding-bottom:56.25%}
-.pf-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0;border-radius:10px}
+/* Video (16:9) y Reel (9:16) */
+.pf-video{ margin:12px 0 10px; }
+.pf-reel { margin:10px 0 12px; }
+
+/* Helpers de relación de aspecto */
+.ratio-16x9 { position:relative; width:100%; padding-top:56.25%; }   /* 16/9 */
+.ratio-9x16 { position:relative; width:100%; padding-top:177.78%; }  /* 9/16 */
+
+.ratio-16x9 > iframe,
+.ratio-9x16 > iframe {
+  position:absolute; inset:0; width:100%; height:100%;
+  border:0; border-radius:10px;
+}
+
+/* (opcional) centrar embeds de Instagram */
+blockquote.instagram-media { margin: 0 auto !important; }
+
 
 /* Galería 2 en 2 (y 1 en móviles) */
 .pf-gallery{display:grid; gap:10px; grid-template-columns:repeat(2,1fr); margin-top:8px}
@@ -1619,19 +1632,7 @@ iframe {
   padding-bottom:6px;
 }
 
-/* Relación 16:9 para iframes (YouTube o Shorts usados como “reel”) */
-.ratio {
-  position: relative;
-  width: 100%;
-  padding-top: 56.25%;
-}
-.ratio > iframe {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border: 0;
-}
+
 
 /* Centrar el embed de Instagram si hace falta */
 blockquote.instagram-media {
