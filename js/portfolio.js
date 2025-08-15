@@ -195,28 +195,28 @@
       tagsEl.innerHTML = tags.map(t => `<span class="tag">${t}</span>`).join('');
     }
 
-    // Video — FORZADO a 26:9
+    // Video — FORZADO a 16:9
     if (videoEl) {
       const v = toYouTubeEmbed(p.video || '');
       videoEl.innerHTML = v
-        ? `<div class="ratio ratio-26x9"><iframe src="${v}" allowfullscreen loading="lazy" title="Video"></iframe></div>`
+        ? `<div class="ratio ratio-16x9"><iframe src="${v}" allowfullscreen loading="lazy" title="Video"></iframe></div>`
         : '';
     }
 
-    // Reel — TAMBIÉN a 26:9 (misma altura que el video)
+    // Reel — TAMBIÉN a 16:9 (misma altura que el video)
     if (reelEl) {
       const r = toReelEmbed(p.reel || '');
       if (!r) {
         reelEl.innerHTML = '';
       } else if (/instagram\.com/.test(r)) {
         reelEl.innerHTML = `
-          <div class="ratio ratio-26x9">
+          <div class="ratio ratio-16x9">
             <iframe src="${r}embed" allowfullscreen loading="lazy" title="Reel"></iframe>
           </div>`;
       } else {
         // Shorts / YouTube
         reelEl.innerHTML = `
-          <div class="ratio ratio-26x9">
+          <div class="ratio ratio-16x9">
             <iframe src="${r}" allowfullscreen loading="lazy" title="Reel"></iframe>
           </div>`;
       }
