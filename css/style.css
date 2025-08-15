@@ -1599,7 +1599,7 @@ iframe {
 .pf-reel { margin:10px 0 12px; }
 
 /* Helpers de relación de aspecto */
-/*.ratio-16x9 { position:relative; width:100%; padding-top:56.25%; } */  /* 16/9 */
+.ratio-16x9 { position:relative; width:100%; padding-top:56.25%; }  /* 16/9 */
 .ratio-9x16 { position:relative; width:100%; padding-top:177.78%; }  /* 9/16 */
 .ratio-16x9 > iframe,
 .ratio-9x16 > iframe {
