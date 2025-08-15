@@ -54,17 +54,16 @@
     return ids.map(label).join(' • ');
   }
 
-  // Videos (YouTube)
+  // Videos (YouTube) -> embed
   function toYouTubeEmbed(url) {
     try {
       if (!url) return '';
       if (url.includes('youtu.be/')) {
-        const id = url.split('youtu.be/')[1].split(/[?&]/)[0];
+        const id = url.split('youtu.be/')[1].split(/[?&#]/)[0];
         return `https://www.youtube.com/embed/${id}?rel=0`;
       }
       const u = new URL(url);
-      const isShort = /\/shorts\//.test(u.pathname);
-      if (isShort) {
+      if (u.pathname.startsWith('/shorts/')) {
         const id = u.pathname.split('/shorts/')[1].split(/[/?#&]/)[0];
         return `https://www.youtube.com/embed/${id}?rel=0`;
       }
@@ -75,16 +74,16 @@
     }
   }
 
-  // Reels (YouTube Shorts o Instagram)
+  // Reels (YouTube Shorts o Instagram) -> embed
   function toReelEmbed(url) {
     try {
       if (!url) return '';
+      // Shorts / YouTube
       if (/youtube\.com\/shorts\//.test(url) || /youtu\.be\//.test(url)) {
-        return toYouTubeEmbed(url); // Shorts
+        return toYouTubeEmbed(url);
       }
-      if (/instagram\.com/.test(url)) {
-        return url; // usaremos /embed al pintar
-      }
+      // Instagram (post/reel); al pintar añadimos /embed si hace falta
+      if (/instagram\.com/.test(url)) return url;
       return '';
     } catch {
       return '';
@@ -183,7 +182,7 @@
     if (!detail) return;
 
     // Título
-    if (titleEl) titleEl.textContent = p.title || '';
+    titleEl && (titleEl.textContent = p.title || '');
 
     // Descripción (HTML permitido con fallback)
     const desc = (p.description_html ?? p.description ?? '');
@@ -195,7 +194,7 @@
       tagsEl.innerHTML = tags.map(t => `<span class="tag">${t}</span>`).join('');
     }
 
-    // Video — FORZADO a 16:9
+    // Video — 16:9
     if (videoEl) {
       const v = toYouTubeEmbed(p.video || '');
       videoEl.innerHTML = v
@@ -203,15 +202,17 @@
         : '';
     }
 
-    // Reel — TAMBIÉN a 16:9 (misma altura que el video)
+    // Reel — también 16:9 (misma altura que el video)
     if (reelEl) {
       const r = toReelEmbed(p.reel || '');
       if (!r) {
         reelEl.innerHTML = '';
       } else if (/instagram\.com/.test(r)) {
+        // Si el link no trae /embed, lo agregamos
+        const src = /\/embed($|\?)/.test(r) ? r : `${r.replace(/\/?$/, '/') }embed`;
         reelEl.innerHTML = `
           <div class="ratio ratio-16x9">
-            <iframe src="${r}embed" allowfullscreen loading="lazy" title="Reel"></iframe>
+            <iframe src="${src}" allowfullscreen loading="lazy" title="Reel"></iframe>
           </div>`;
       } else {
         // Shorts / YouTube
